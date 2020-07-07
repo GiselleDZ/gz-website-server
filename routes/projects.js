@@ -4,16 +4,16 @@ const db = require('../db')
 const dbName = "personalwebsite";
 const collectionName = "softwareprojects";
 
-router.get('/test', async function (req, res, next){
-    console.log("GETS INTO THE ROoooooUTE")
-    try {
-        console.log("THE CONNECTION WORKS")
-        res.send('THE CONNECTION WORKS')
-    } catch (error) {
-        console.log("THE CONNECTION FAILS")
-        next(error)
-    }
-})
+// router.get('/test', async function (req, res, next){
+//     console.log("GETS INTO THE ROoooooUTE")
+//     try {
+//         console.log("THE CONNECTION WORKS")
+//         res.send('THE CONNECTION WORKS')
+//     } catch (error) {
+//         console.log("THE CONNECTION FAILS")
+//         next(error)
+//     }
+// })
 
 db.initialize(dbName, collectionName, function(dbCollection) { 
 
