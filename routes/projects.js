@@ -8,6 +8,15 @@ const collectionName = "softwareprojects";
 db.initialize(dbName, collectionName, function(dbCollection) { 
 
     // async await and try catch DO WORK - write in es6
+    router.get('/test', async function (req, res, next){
+        console.log("GETS INTO THE ROUTE")
+        try {
+            console.log("THE CONNECTION WORKS")
+        } catch (error) {
+            console.log("THE CONNECTION FAILS")
+            next(error)
+        }
+    })
     router.get('/', async function (req, res, next){
         console.log("GETS INTO THE ROUTE")
         try {
