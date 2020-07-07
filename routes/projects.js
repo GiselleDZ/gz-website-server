@@ -23,7 +23,7 @@ db.initialize(dbName, collectionName, function(dbCollection) {
         try {
             const projects = await dbCollection.find().toArray(function(err, result) {
                 console.log(result)
-                res.json(projects)
+                res.json(result)
             });
         } catch (error) {
             console.log("FAILS TO RECEIVE DATA")
