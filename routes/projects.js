@@ -9,12 +9,14 @@ db.initialize(dbName, collectionName, function(dbCollection) {
 
     // async await and try catch DO WORK - write in es6
     router.get('/', async function (req, res, next){
+        console.log("GETS INTO THE ROUTE")
         try {
             const projects = await dbCollection.find().toArray(function(err, result) {
                 console.log(result)
                 res.json(projects)
             });
         } catch (error) {
+            console.log("FAILS TO RECEIVE DATA")
             next(error)
         }
     })
