@@ -5,7 +5,7 @@ const dbName = "personalwebsite";
 const collectionName = "softwareprojects";
 
 router.get('/test', async function (req, res, next){
-    console.log("GETS INTO THE ROUTE")
+    console.log("GETS INTO THE ROoooooUTE")
     try {
         console.log("THE CONNECTION WORKS")
         res.send('THE CONNECTION WORKS')
