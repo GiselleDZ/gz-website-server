@@ -1,5 +1,3 @@
-require('./secrets')
-
 const MongoClient = require('mongodb').MongoClient
 
 const dbConnectionUrl = process.env.MONGODB_CONNECTION
