@@ -4,38 +4,35 @@ const db = require('../db')
 const dbName = "personalwebsite";
 const collectionName = "softwareprojects";
 
-// router.get('/test', async function (req, res, next){
-//     console.log("GETS INTO THE ROoooooUTE")
-//     try {
-//         console.log("THE CONNECTION WORKS")
-//         res.send('THE CONNECTION WORKS')
-//     } catch (error) {
-//         console.log("THE CONNECTION FAILS")
-//         next(error)
-//     }
-// })
-
-db.initialize(dbName, collectionName, function(dbCollection) { 
+db.initialize(dbName, collectionName, function(dbCollection) {
 
     // async await and try catch DO WORK - write in es6
     router.get('/', async function (req, res, next){
-        console.log("GETS INTO THE ROUTE")
         try {
-            const projects = await dbCollection.find().toArray(function(err, result) {
-                console.log(result)
+            await dbCollection.find().toArray(function(err, result) {
                 res.json(result)
             });
         } catch (error) {
-            console.log("FAILS TO RECEIVE DATA")
             next(error)
         }
     })
-    // async await and try catch DO WORK - write in es6
+
+    router.get(`/:projectName`, async function (req, res, next){
+        try {
+            await dbCollection.findOne({name:req.params}).toArray(function(err, result){
+                console.log(result)
+                res.json(result)
+            })
+        } catch (error) {
+            next(error)
+        }
+    })
+
     router.post("/", (request, response) => {
         const item = request.body
-        dbCollection.insertOne(item, (error, result) => { 
+        dbCollection.insertOne(item, (error, result) => {
             if (error) throw error
-            dbCollection.find().toArray((_error, _result) => { 
+            dbCollection.find().toArray((_error, _result) => {
                 if (_error) throw _error
                 response.json(_result)
             })
