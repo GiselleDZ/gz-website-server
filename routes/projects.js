@@ -20,7 +20,7 @@ db.initialize(dbName, collectionName, function(dbCollection) {
     router.get(`/:name`, async function (req, res, next){
         console.log(req.params)
         try {
-            await dbCollection.findOne({name:req.params}, (err, result) => {
+            await dbCollection.findOne({name:req.params.name}, (err, result) => {
                 if (err ) console.log(err)
                 console.log(result)
                 res.json(result)
