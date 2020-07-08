@@ -10,7 +10,7 @@ db.initialize(dbName, collectionName, function(dbCollection) {
     router.get('/', async function (req, res, next){
         try {
             await dbCollection.find().toArray(function(err, result) {
-                res.json(result)
+                res.json(result).status(200)
             });
         } catch (error) {
             next(error)
@@ -22,7 +22,7 @@ db.initialize(dbName, collectionName, function(dbCollection) {
         try {
             await dbCollection.findOne({name:name}, (err, result) => {
                 if (err ) console.log(err)
-                res.json(result)
+                res.json(result).status(200)
             })
         } catch (error) {
             next(error)
@@ -36,7 +36,7 @@ db.initialize(dbName, collectionName, function(dbCollection) {
                 if (error) throw error
                 dbCollection.find().toArray((_error, _result) => {
                     if (_error) throw _error
-                    res.json(_result)
+                    res.json(_result).status(200)
                 })
             })
         } catch (error) {
@@ -52,7 +52,7 @@ db.initialize(dbName, collectionName, function(dbCollection) {
                 if (err) console.error(error, 'Unable to delete')
                 dbCollection.find().toArray((_error, _result) => {
                     if (_error) console.error( _error, 'Unable to retrieve all projects after deletion' )
-                    res.json(_result)
+                    res.json(_result).status(200)
                 })
             })
         } catch (error) {
