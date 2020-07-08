@@ -29,18 +29,39 @@ db.initialize(dbName, collectionName, function(dbCollection) {
         }
     })
 
-    router.post("/", (request, response) => {
-        const item = request.body
-        dbCollection.insertOne(item, (error, result) => {
-            if (error) throw error
-            dbCollection.find().toArray((_error, _result) => {
-                if (_error) throw _error
-                response.json(_result)
+    router.post('/', async function (req, res, next){
+        const { project } = request.body
+        try {
+            dbCollection.insertOne(project, (error, result) => {
+                if (error) throw error
+                dbCollection.find().toArray((_error, _result) => {
+                    if (_error) throw _error
+                    res.json(_result)
+                })
             })
-        })
+        } catch (error) {
+            console.error(error, 'Unable to post a new project')
+            next(error)
+        }
     })
+
+    router.delete('/:name', async function (req, res, next){
+        const { name } = req.params
+        try {
+            await dbCollection.deleteOne({ name: name }, ( error, result ) => {
+                if (err) console.error(error, 'Unable to delete')
+                dbCollection.find().toArray((_error, _result) => {
+                    if (_error) console.error( _error, 'Unable to retrieve all projects after deletion' )
+                    res.json(_result)
+                })
+            })
+        } catch (error) {
+            console.error(error, 'Unable to deliver request')
+        }
+    })
+
 }, function(err) {
-    throw (err)
+    throw (err, 'Unable to establish Database connection')
 })
 
 
